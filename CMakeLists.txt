@@ -28,7 +28,7 @@ option(BUILD_DOCS "Build Documentation" "${QT_NODES_DEVELOPER_DEFAULTS}")
 option(BUILD_SHARED_LIBS "Build as shared library" ON)
 option(BUILD_DEBUG_POSTFIX_D "Append d suffix to debug libraries" OFF)
 option(QT_NODES_FORCE_TEST_COLOR "Force colorized unit test output" OFF)
-option(USE_QT6 "Build with Qt6 (Enabled by default)" ON)
+option(USE_QT6 "Build with Qt6 (Enabled by default)" OFF)
 
 enable_testing()
 
@@ -50,16 +50,21 @@ add_subdirectory(external)
 if(USE_QT6)
   find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets)
 else()
-  find_package(QT NAMES Qt5 REQUIRED COMPONENTS Widgets)
+  set(Qt5_DIR "C:/apps/Qt/5.15.2/msvc2019_64/lib/cmake/Qt5")
+  find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui OpenGL)
 endif()
 
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Gui OpenGL)
+set(QT_VERSION_MAJOR 5)
+set(QT_VERSION 5.15)
+
+# find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Widgets Gui OpenGL)
 message(STATUS "QT_VERSION: ${QT_VERSION}, QT_DIR: ${QT_DIR}")
 
 if (${QT_VERSION} VERSION_LESS 5.11.0)
   message(FATAL_ERROR "Requires qt version >= 5.11.0, Your current version is ${QT_VERSION}")
 endif()
 
+message(STATUS ${QT_VERSION_MAJOR})
 if (${QT_VERSION_MAJOR} EQUAL 6)
   qt_add_resources(RESOURCES ./resources/resources.qrc)
 else()
