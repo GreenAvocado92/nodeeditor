@@ -348,18 +348,11 @@ void NodeGraphicsObject::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 
     event->accept();
 }
-#include <QMessageBox>
-#include <QDialog>
+
+
 void NodeGraphicsObject::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseDoubleClickEvent(event);
-    // QMessageBox msgBox;
-    // msgBox.setText(u8"你好~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    // msgBox.exec();
-    QDialog *dialog = new QDialog();
-    dialog->setWindowTitle("参数设置");
-    dialog->setFixedSize(200, 350);
-    dialog->show();
     Q_EMIT nodeScene()->nodeDoubleClicked(_nodeId);
 }
 

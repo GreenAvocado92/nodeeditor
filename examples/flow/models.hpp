@@ -6,7 +6,6 @@
 #include <QtNodes/NodeDelegateModel>
 
 #include <memory>
-
 using QtNodes::NodeData;
 using QtNodes::NodeDataType;
 using QtNodes::NodeDelegateModel;
@@ -25,6 +24,7 @@ public:
 
 /// The model dictates the number of inputs and outputs for the Node.
 /// In this example it has no logic.
+#include <QGraphicsObject>
 class MyDataModel : public NodeDelegateModel
 {
     Q_OBJECT
@@ -36,6 +36,7 @@ public:
 
     QString name() const override { return QString("MyDataModel"); }
 
+    // void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 public:
     QJsonObject save() const override
     {
@@ -59,4 +60,7 @@ public:
     void setInData(std::shared_ptr<NodeData>, PortIndex const) override {}
 
     QWidget *embeddedWidget() override { return nullptr; }
+
+protected:
+    bool eventFilter(QObject *object, QEvent *event) override;
 };

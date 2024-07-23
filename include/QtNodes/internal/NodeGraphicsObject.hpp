@@ -22,6 +22,8 @@ public:
     int type() const override { return Type; }
 
 public:
+    NodeGraphicsObject();
+
     NodeGraphicsObject(BasicGraphicsScene &scene, NodeId node);
 
     ~NodeGraphicsObject() override = default;

@@ -9,11 +9,11 @@
 #include "NodeData.hpp"
 #include "NodeStyle.hpp"
 #include "Serializable.hpp"
+#include "NodeGraphicsObject.hpp"
 
 namespace QtNodes {
 
 class StyleCollection;
-
 /**
  * The class wraps Node-specific data operations and propagates it to
  * the nesting DataFlowGraphModel which is a subclass of
