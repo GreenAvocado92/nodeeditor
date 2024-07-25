@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 #include <QtNodes/ConnectionStyle>
 #include <QtNodes/DataFlowGraphModel>
 #include <QtNodes/DataFlowGraphicsScene>
@@ -13,7 +13,7 @@ using QtNodes::GraphicsViewStyle;
 using QtNodes::NodeStyle;
 using QtNodes::ConnectionStyle;
 
-static void setStyle()
+static void setNodeStyle()
 {
     GraphicsViewStyle::setStyle(
         R"(

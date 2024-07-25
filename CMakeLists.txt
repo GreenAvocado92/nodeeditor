@@ -230,11 +230,11 @@ target_sources(QtNodes PRIVATE ${nodes_moc})
 ###########
 # Examples
 ##
+add_subdirectory(app)
 
-if(BUILD_EXAMPLES)
-  add_subdirectory(examples)
-  add_subdirectory(app)
-endif()
+# if(BUILD_EXAMPLES)
+  # add_subdirectory(examples)
+# endif()
 
 if(BUILD_DOCS)
   add_subdirectory(docs)

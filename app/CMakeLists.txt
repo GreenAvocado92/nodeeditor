@@ -1,5 +1,5 @@
 file(GLOB_RECURSE CPPS  ./*.cpp)
-file(GLOB_RECURSE HPPS  ./*.hpp )
+file(GLOB_RECURSE HPPS  ./*.hpp ./*.h)
 
 add_executable(flow ${CPPS} ${HPPS})
 

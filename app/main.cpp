@@ -1,5 +1,6 @@
-#include "style.hpp"
+#include "NodeFlow.h"
 
+#include <QApplication>
 #include <QtNodes/ConnectionStyle>
 #include <QtNodes/DataFlowGraphModel>
 #include <QtNodes/DataFlowGraphicsScene>
@@ -9,17 +10,7 @@
 #include <QtNodes/NodeDelegateModelRegistry>
 #include <QtNodes/NodeStyle>
 
-#include <QtWidgets/QApplication>
-
-#include <QMenuBar>
-#include <QMenu>
-#include <QVBoxLayout>
-#include <QScreen>
-#include <QDockWidget>
-#include <QMainWindow>
-
 #include "ImageLoaderModel.hpp"
-#include "TestModel.hpp"
 
 using QtNodes::ConnectionStyle;
 using QtNodes::DataFlowGraphicsScene;
@@ -32,20 +23,17 @@ using QtNodes::NodeStyle;
 static std::shared_ptr<NodeDelegateModelRegistry> registerDataModels()
 {
     auto ret = std::make_shared<NodeDelegateModelRegistry>();
-
     ret->registerModel<ImageLoaderModel>();
-    ret->registerModel<TestModel>();
+    // ret->registerModel<TestModel>();
 
     return ret;
 }
 
-
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
-
-    setStyle();
-
+    QApplication a(argc, argv);
+    // NodeFlow w;
+    // w.show();
     QMainWindow mainWindow;
     
     auto menuBar = new QMenuBar(&mainWindow);
@@ -62,5 +50,6 @@ int main(int argc, char *argv[])
     console->setWidget(view);
 
     mainWindow.show();
-    return app.exec();
+
+    return a.exec();
 }
