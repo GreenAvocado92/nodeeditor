@@ -1,4 +1,3 @@
-#include "models.hpp"
 #include "style.hpp"
 
 #include <QtNodes/ConnectionStyle>
@@ -19,6 +18,9 @@
 #include <QDockWidget>
 #include <QMainWindow>
 
+#include "ImageLoaderModel.hpp"
+#include "TestModel.hpp"
+
 using QtNodes::ConnectionStyle;
 using QtNodes::DataFlowGraphicsScene;
 using QtNodes::DataFlowGraphModel;
@@ -31,7 +33,8 @@ static std::shared_ptr<NodeDelegateModelRegistry> registerDataModels()
 {
     auto ret = std::make_shared<NodeDelegateModelRegistry>();
 
-    ret->registerModel<MyDataModel>();
+    ret->registerModel<ImageLoaderModel>();
+    ret->registerModel<TestModel>();
 
     return ret;
 }
@@ -43,42 +46,21 @@ int main(int argc, char *argv[])
 
     setStyle();
 
-    std::shared_ptr<NodeDelegateModelRegistry> registry = registerDataModels();
-
-    QWidget mainWidget;
-
-    auto menuBar = new QMenuBar();
+    QMainWindow mainWindow;
+    
+    auto menuBar = new QMenuBar(&mainWindow);
     QMenu *menu = menuBar->addMenu("File");
-
     auto saveAction = menu->addAction("Save Scene");
-    saveAction->setShortcut(QKeySequence::Save);
-
-    auto loadAction = menu->addAction("Load Scene");
-    loadAction->setShortcut(QKeySequence::Open);
-
-    QVBoxLayout *l = new QVBoxLayout(&mainWidget);
-
+    
+    QDockWidget* console = new QDockWidget("AAAA");
+    mainWindow.addDockWidget(Qt::DockWidgetArea::BottomDockWidgetArea, console);
+    QWidget flow_view;
+    std::shared_ptr<NodeDelegateModelRegistry> registry = registerDataModels();
     DataFlowGraphModel dataFlowGraphModel(registry);
-
-    l->addWidget(menuBar);
-    auto scene = new DataFlowGraphicsScene(dataFlowGraphModel, &mainWidget);
-
+    auto scene = new DataFlowGraphicsScene(dataFlowGraphModel, &flow_view);
     auto view = new GraphicsView(scene);
-    // l->addWidget(view);
-    l->setContentsMargins(0, 0, 0, 0);
-    l->setSpacing(0);
+    console->setWidget(view);
 
-    QDockWidget *console = new QDockWidget("console");
-    console->setAllowedAreas(Qt::BottomDockWidgetArea);
-    console->setFixedHeight(20);
-    l->addWidget(console);
-
-    mainWidget.setWindowTitle("Data Flow");
-    mainWidget.resize(960, 720);
-    // Center window.
-    mainWidget.move(QApplication::primaryScreen()->availableGeometry().center()
-                    - mainWidget.rect().center());
-    mainWidget.showNormal();
-
+    mainWindow.show();
     return app.exec();
 }

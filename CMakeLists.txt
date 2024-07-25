@@ -233,6 +233,7 @@ target_sources(QtNodes PRIVATE ${nodes_moc})
 
 if(BUILD_EXAMPLES)
   add_subdirectory(examples)
+  add_subdirectory(app)
 endif()
 
 if(BUILD_DOCS)

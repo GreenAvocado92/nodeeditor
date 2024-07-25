@@ -1,4 +1,3 @@
-#include "models.hpp"
 #include "style.hpp"
 
 #include <QtNodes/ConnectionStyle>
@@ -19,6 +18,9 @@
 #include <QDockWidget>
 #include <QMainWindow>
 
+#include "ImageLoaderModel.hpp"
+#include "TestModel.hpp"
+
 using QtNodes::ConnectionStyle;
 using QtNodes::DataFlowGraphicsScene;
 using QtNodes::DataFlowGraphModel;
@@ -31,7 +33,8 @@ static std::shared_ptr<NodeDelegateModelRegistry> registerDataModels()
 {
     auto ret = std::make_shared<NodeDelegateModelRegistry>();
 
-    ret->registerModel<MyDataModel>();
+    ret->registerModel<ImageLoaderModel>();
+    ret->registerModel<TestModel>();
 
     return ret;
 }
