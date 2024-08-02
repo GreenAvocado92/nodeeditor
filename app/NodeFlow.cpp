@@ -43,7 +43,7 @@ NodeFlow::NodeFlow(QWidget* parent)
     auto menuBar = new QMenuBar(this);
     QMenu *menu = menuBar->addMenu("File");
     auto saveAction = menu->addAction("Save Scene");
-    /*
+
     QTabWidget *tabWidget = new QTabWidget(this);
     QLabel *label = new QLabel();//创建一个QLabel（QWidget*）
     QLabel *label2 = new QLabel();//
@@ -57,7 +57,7 @@ NodeFlow::NodeFlow(QWidget* parent)
     tabWidget->setTabShape(QTabWidget::Triangular);
     // tabWidget->addTab(vtkwidget_, "point cloud");
     tabWidget->addTab(graphicsView, "image");
-
+    /*
     QDockWidget* dockwidget = new QDockWidget("Console", this);
 
 	QTextEdit *console_text_ = new QTextEdit(this);
@@ -68,17 +68,21 @@ NodeFlow::NodeFlow(QWidget* parent)
     this->addDockWidget(Qt::DockWidgetArea::BottomDockWidgetArea, dockwidget);
 
     */
-    QWidget flow_view;
+    // QWidget *flow_view = new QWidget(this);
     std::shared_ptr<NodeDelegateModelRegistry> registry = registerDataModels();
     DataFlowGraphModel dataFlowGraphModel(registry);
-    auto scene = new DataFlowGraphicsScene(dataFlowGraphModel, &flow_view);
-    auto view = new GraphicsView(scene);
-    QDockWidget* dock = new QDockWidget("AAAVVV", this);
-    this->addDockWidget(Qt::DockWidgetArea::BottomDockWidgetArea, dock);
-    dock->setWidget(view);
-    // tabWidget->addTab(dock, "view");
 
-    // setCentralWidget(dock);
+    DataFlowGraphicsScene scene(dataFlowGraphModel);
+
+    GraphicsView view(&scene);
+
+    // QWidget *flow_view = new QWidget(this);
+    // std::shared_ptr<NodeDelegateModelRegistry> registry = registerDataModels();
+    // DataFlowGraphModel dataFlowGraphModel(registry);
+    // auto scene = new DataFlowGraphicsScene(dataFlowGraphModel, flow_view);
+    // auto view = new GraphicsView(scene);
+
+    setCentralWidget(tabWidget);
 }
 
 
