@@ -46,24 +46,39 @@ bool ImageLoaderModel::eventFilter(QObject *object, QEvent *event)
     if (object == _label) {
         int w = _label->width();
         int h = _label->height();
-
-        if (event->type() == QEvent::MouseButtonPress) {
-            QString fileName = QFileDialog::getOpenFileName(nullptr,
-                                                            tr("Open Image"),
-                                                            QDir::homePath(),
-                                                            tr("Image Files (*.png *.jpg *.bmp)"));
-
-            _pixmap = QPixmap(fileName);
-
-            _label->setPixmap(_pixmap.scaled(w, h, Qt::KeepAspectRatio));
-
-            Q_EMIT dataUpdated(0);
-
-            return true;
-        } else if (event->type() == QEvent::Resize) {
-            if (!_pixmap.isNull())
-                _label->setPixmap(_pixmap.scaled(w, h, Qt::KeepAspectRatio));
+        switch (event->type()) {
+            case QEvent::MouseButtonPress: {
+                qDebug() << " Mouse button pressed";
+                QMessageBox message(QMessageBox::NoIcon, "Params", "Undefined Params"); 
+                message.setFixedSize(100, 250);
+                message.exec();
+                break;
+            }
+            case QEvent::MouseButtonRelease:
+                qDebug() << "Mouse button released";
+                break;
+            case QEvent::MouseButtonDblClick:
+                qDebug() << "Mouse double clicked";
+                // 处理鼠标双击事件
+                break;
         }
+    //     if (event->type() == QEvent::MouseButtonRelease) {
+    //         QString fileName = QFileDialog::getOpenFileName(nullptr,
+    //                                                         tr("Open Image"),
+    //                                                         QDir::homePath(),
+    //                                                         tr("Image Files (*.png *.jpg *.bmp)"));
+
+    //         _pixmap = QPixmap(fileName);
+
+    //         _label->setPixmap(_pixmap.scaled(w, h, Qt::KeepAspectRatio));
+
+    //         Q_EMIT dataUpdated(0);
+
+    //         return true;
+    //     } else if (event->type() == QEvent::Resize) {
+    //         if (!_pixmap.isNull())
+    //             _label->setPixmap(_pixmap.scaled(w, h, Qt::KeepAspectRatio));
+    //     }
     }
 
     return false;

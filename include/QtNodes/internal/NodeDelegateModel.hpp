@@ -128,6 +128,7 @@ Q_SIGNALS:
 
 private:
     NodeStyle _nodeStyle;
+
 };
 
 } // namespace QtNodes

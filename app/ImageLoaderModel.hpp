@@ -1,8 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 
 #include <QtCore/QObject>
+#include <QMessageBox>
 #include <QtWidgets/QLabel>
 
 #include <QtNodes/NodeDelegateModel>

@@ -9,9 +9,16 @@
 #include <QtNodes/NodeData>
 #include <QtNodes/NodeDelegateModelRegistry>
 #include <QtNodes/NodeStyle>
+#include <QVBoxLayout>
 
 #include "style.hpp"
 #include "ImageLoaderModel.hpp"
+#include "AdditionModel.hpp"
+#include "DivisionModel.hpp"
+#include "MultiplicationModel.hpp"
+#include "NumberDisplayDataModel.hpp"
+#include "NumberSourceDataModel.hpp"
+#include "SubtractionModel.hpp"
 
 using QtNodes::ConnectionStyle;
 using QtNodes::DataFlowGraphicsScene;
@@ -24,9 +31,13 @@ using QtNodes::NodeStyle;
 static std::shared_ptr<NodeDelegateModelRegistry> registerDataModels()
 {
     auto ret = std::make_shared<NodeDelegateModelRegistry>();
-    ret->registerModel<ImageLoaderModel>();
-    // ret->registerModel<TestModel>();
-
+    ret->registerModel<ImageLoaderModel>("Sources");
+    ret->registerModel<NumberSourceDataModel>("Sources");
+    ret->registerModel<NumberDisplayDataModel>("Displays");
+    ret->registerModel<AdditionModel>("Operators");
+    ret->registerModel<SubtractionModel>("Operators");
+    ret->registerModel<MultiplicationModel>("Operators");
+    ret->registerModel<DivisionModel>("Operators");
     return ret;
 }
 
@@ -36,7 +47,8 @@ int main(int argc, char *argv[])
     // NodeFlow w;
     // w.show();
     QMainWindow mainWindow;
-    
+    mainWindow.setWindowTitle("HYTech");
+
     setNodeStyle();
 
     auto menuBar = new QMenuBar(&mainWindow);
@@ -44,8 +56,10 @@ int main(int argc, char *argv[])
     QMenu *menu = menuBar->addMenu("File");
     auto saveAction = menu->addAction("Save Scene");
     auto loadAction = menu->addAction("Load Scene");
+    QMenu *func = menuBar->addMenu("Func");
+    mainWindow.setMenuBar(menuBar);
 
-    QDockWidget* flow_dock = new QDockWidget("Flow");
+    QDockWidget* flow_dock = new QDockWidget("FlowScene");
     mainWindow.addDockWidget(Qt::DockWidgetArea::TopDockWidgetArea, flow_dock);
     QWidget flow_view;
     std::shared_ptr<NodeDelegateModelRegistry> registry = registerDataModels();
